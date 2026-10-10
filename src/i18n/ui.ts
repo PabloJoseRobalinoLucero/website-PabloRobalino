@@ -101,12 +101,6 @@ const esTranslations = {
   'contact.locationValue': 'Ibarra, Ecuador',
   'contact.social': 'Redes profesionales',
   'contact.references': 'Referencias disponibles a solicitud',
-  'contact.downloadCv': 'Descargar CV',
-  'contact.cvSpanish': 'CV (Español)',
-  'contact.cvEnglish': 'CV (English)',
-
-  // Footer
-  'footer.rights': '© 2025 Pablo Robalino',
 } as const;
 
 export type UIKey = keyof typeof esTranslations;
@@ -209,12 +203,6 @@ const enTranslations: Record<UIKey, string> = {
   'contact.locationValue': 'Ibarra, Ecuador',
   'contact.social': 'Professional networks',
   'contact.references': 'References available upon request',
-  'contact.downloadCv': 'Download CV',
-  'contact.cvSpanish': 'CV (Spanish)',
-  'contact.cvEnglish': 'CV (English)',
-
-  // Footer
-  'footer.rights': '© 2025 Pablo Robalino',
 };
 
 // Double-check symmetrical key parity at compile time

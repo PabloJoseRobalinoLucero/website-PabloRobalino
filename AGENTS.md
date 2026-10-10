@@ -78,6 +78,10 @@ Consult these guides before working on related tasks:
 - [Adding styles or using Tailwind](https://docs.astro.build/en/guides/styling/)
 - [Supporting multiple languages](https://docs.astro.build/en/guides/internationalization/) — ⚠️ WARNING: this guide describes the routing-based i18n approach that this project does NOT use. Read only for reference; never apply its conventions here.
 
+## CV / Résumé Policy
+- The website NEVER offers CV download buttons or links. The arrow points one way: PDF → website.
+- Do not add "Download CV" / "Download résumé" features or PDF links anywhere.
+
 ## Styling & Tailwind CSS v4 Rules
 - **Use Built-in Color Palette First:** Always leverage default Tailwind v4 colors (`slate`, `gray`, `zinc`, `neutral`, `stone`, `red`, `blue`, `indigo`, etc.) using standard utility classes (e.g., `bg-slate-900`, `text-indigo-600`). Do NOT create custom color classes or use arbitrary hex values (`bg-[#1a1a1a]`) if an equivalent standard Tailwind color exists.
 - **Tailwind CSS v4 CSS-First Architecture:** Tailwind CSS v4 uses CSS-first configuration via `@import "tailwindcss";`. Do NOT generate or look for a `tailwind.config.js` file.
