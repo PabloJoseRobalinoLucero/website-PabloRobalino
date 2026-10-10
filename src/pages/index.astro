@@ -1,0 +1,19 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { useTranslations } from '../i18n/utils';
+
+const locale = 'es';
+const t = useTranslations(locale);
+---
+
+<Layout locale={locale} title={t('site.title')}>
+  <section class="text-center py-16">
+    <h1 class="text-4xl font-extrabold tracking-tight sm:text-6xl text-slate-100">
+      <span class="bg-linear-to-r from-sky-400 via-sky-300 to-blue-500 bg-clip-text text-transparent">
+        {t('hero.title')}
+      </span>
+    </h1>
+  </section>
+</Layout>
+
+
