@@ -1,27 +1,63 @@
 ---
 import '../styles/global.css';
-import { getRelativeLocaleUrl } from 'astro:i18n';
-import LanguagePicker from '../components/LanguagePicker.astro';
-import { type SupportedLanguage } from '../i18n/ui';
+import LanguageToggle from '../components/LanguageToggle.astro';
+import { ui } from '../i18n/ui';
 
 interface Props {
-  locale: SupportedLanguage;
-  title: string;
+  title?: {
+    es: string;
+    en: string;
+  };
 }
 
-const { locale, title } = Astro.props;
-const homeUrl = getRelativeLocaleUrl(locale, '/');
+const { title } = Astro.props;
+const titleEs = title?.es ?? ui.es['site.title'];
+const titleEn = title?.en ?? ui.en['site.title'];
 ---
 
 <!doctype html>
-<html lang={locale} class="dark">
+<html
+  lang="es"
+  class="dark"
+  data-title-es={titleEs}
+  data-title-en={titleEn}
+>
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
+    <title>{titleEs}</title>
+
+    <!-- Early inline script to prevent language / title flash before paint -->
+    <script is:inline>
+      (function () {
+        try {
+          var stored = localStorage.getItem('site-lang');
+          var lang = 'es';
+          if (stored === 'es' || stored === 'en') {
+            lang = stored;
+          } else {
+            var navLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+            if (navLang.startsWith('en')) {
+              lang = 'en';
+            } else {
+              lang = 'es';
+            }
+          }
+          document.documentElement.lang = lang;
+
+          var root = document.documentElement;
+          var title = lang === 'en' ? root.dataset.titleEn : root.dataset.titleEs;
+          if (title) {
+            document.title = title;
+          }
+        } catch (e) {
+          document.documentElement.lang = 'es';
+        }
+      })();
+    </script>
   </head>
   <body class="min-h-screen bg-slate-950 text-slate-100 antialiased flex flex-col relative selection:bg-sky-500 selection:text-slate-950">
     <!-- Ambient glowing backgrounds in blue & sky -->
@@ -32,11 +68,11 @@ const homeUrl = getRelativeLocaleUrl(locale, '/');
 
     <header class="border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-md sticky top-0 z-50">
       <div class="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
-        <a href={homeUrl} class="font-bold text-lg text-slate-100 hover:text-sky-400 transition-colors flex items-center gap-2">
+        <a href="/" class="font-bold text-lg text-slate-100 hover:text-sky-400 transition-colors flex items-center gap-2">
           <span>Pablo Robalino</span>
           <span class="inline-block w-2 h-2 rounded-full bg-sky-400 shadow-sm shadow-sky-400"></span>
         </a>
-        <LanguagePicker currentLocale={locale} />
+        <LanguageToggle />
       </div>
     </header>
 
@@ -45,4 +81,6 @@ const homeUrl = getRelativeLocaleUrl(locale, '/');
     </main>
   </body>
 </html>
+
+
 

@@ -1,0 +1,19 @@
+---
+import { ui, type UIKey } from '../i18n/ui';
+import type { TranslatableString } from '../i18n/utils';
+
+interface Props {
+  k?: UIKey;
+  text?: TranslatableString;
+  as?: string;
+  class?: string;
+}
+
+const { k, text, as: Tag = 'span', class: className } = Astro.props;
+
+const esContent = k ? ui.es[k] : text ? text.es : '';
+const enContent = k ? ui.en[k] : text ? text.en : '';
+---
+
+<Tag class={className} data-i18n-lang="es">{esContent}</Tag>
+<Tag class={className} data-i18n-lang="en">{enContent}</Tag>

@@ -1,0 +1,94 @@
+---
+import { ui } from '../i18n/ui';
+---
+
+<div
+  role="group"
+  aria-label={ui.es['lang.toggleAria']}
+  class="inline-flex items-center gap-1 p-1 rounded-lg bg-slate-900 border border-slate-800 text-xs sm:text-sm font-medium"
+>
+  <button
+    type="button"
+    data-lang-btn="es"
+    aria-pressed="false"
+    class="lang-btn px-3 py-1.5 rounded-md transition-all duration-200 cursor-pointer text-slate-400 hover:text-sky-300 hover:bg-slate-800/80"
+  >
+    {ui.es['lang.es']}
+  </button>
+  <button
+    type="button"
+    data-lang-btn="en"
+    aria-pressed="false"
+    class="lang-btn px-3 py-1.5 rounded-md transition-all duration-200 cursor-pointer text-slate-400 hover:text-sky-300 hover:bg-slate-800/80"
+  >
+    {ui.en['lang.en']}
+  </button>
+</div>
+
+<script>
+  type SupportedLanguage = 'es' | 'en';
+
+  const ACTIVE_CLASSES = [
+    'bg-sky-500',
+    'text-slate-950',
+    'font-semibold',
+    'shadow-sm',
+    'shadow-sky-500/25',
+  ];
+  const INACTIVE_CLASSES = [
+    'text-slate-400',
+    'hover:text-sky-300',
+    'hover:bg-slate-800/80',
+  ];
+
+  function updateActiveUI(lang: SupportedLanguage) {
+    const buttons = document.querySelectorAll<HTMLButtonElement>('[data-lang-btn]');
+    buttons.forEach((btn) => {
+      const btnLang = btn.getAttribute('data-lang-btn');
+      const isActive = btnLang === lang;
+      btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+
+      if (isActive) {
+        btn.classList.add(...ACTIVE_CLASSES);
+        btn.classList.remove(...INACTIVE_CLASSES);
+      } else {
+        btn.classList.remove(...ACTIVE_CLASSES);
+        btn.classList.add(...INACTIVE_CLASSES);
+      }
+    });
+
+    const root = document.documentElement;
+    const title = lang === 'en' ? root.dataset.titleEn : root.dataset.titleEs;
+    if (title) {
+      document.title = title;
+    }
+  }
+
+  function setLanguage(lang: SupportedLanguage) {
+    try {
+      localStorage.setItem('site-lang', lang);
+    } catch (e) {
+      // localStorage might be disabled
+    }
+    document.documentElement.lang = lang;
+    updateActiveUI(lang);
+  }
+
+  function initLanguageToggle() {
+    const currentLang = (document.documentElement.lang || 'es') as SupportedLanguage;
+    updateActiveUI(currentLang === 'en' ? 'en' : 'es');
+
+    const buttons = document.querySelectorAll<HTMLButtonElement>('[data-lang-btn]');
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const targetLang = btn.getAttribute('data-lang-btn') as SupportedLanguage;
+        if (targetLang) {
+          setLanguage(targetLang);
+        }
+      });
+    });
+  }
+
+  initLanguageToggle();
+  document.addEventListener('astro:page-load', initLanguageToggle);
+</script>

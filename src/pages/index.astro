@@ -1,18 +1,46 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { useTranslations } from '../i18n/utils';
+import Trans from '../components/Trans.astro';
+import { projects } from '../data/projects';
 
-const locale = 'es';
-const t = useTranslations(locale);
+const featuredProject = projects.find((p) => p.featured);
 ---
 
-<Layout locale={locale} title={t('site.title')}>
-  <section class="text-center py-16">
-    <h1 class="text-4xl font-extrabold tracking-tight sm:text-6xl text-slate-100">
-      <span class="bg-linear-to-r from-sky-400 via-sky-300 to-blue-500 bg-clip-text text-transparent">
-        {t('hero.title')}
-      </span>
-    </h1>
+<Layout>
+  <section class="text-center py-16 space-y-12">
+    <div>
+      <h1 class="text-4xl font-extrabold tracking-tight sm:text-6xl text-slate-100">
+        <span class="bg-linear-to-r from-sky-400 via-sky-300 to-blue-500 bg-clip-text text-transparent">
+          <Trans k="hero.title" />
+        </span>
+      </h1>
+    </div>
+
+    {
+      featuredProject && (
+        <article class="max-w-xl mx-auto p-6 rounded-2xl bg-slate-900/60 border border-slate-800 text-left backdrop-blur-sm shadow-xl shadow-slate-950/50">
+          <div class="inline-block px-3 py-1 mb-4 rounded-full text-xs font-semibold tracking-wider uppercase bg-sky-950/80 text-sky-400 border border-sky-800/50">
+            <Trans k="projects.featured" />
+          </div>
+          <h2 class="text-2xl font-bold text-slate-100 mb-2">
+            <Trans text={featuredProject.title} />
+          </h2>
+          <p class="text-sky-300 text-sm mb-3">
+            <Trans text={featuredProject.tagline} />
+          </p>
+          <p class="text-slate-400 text-sm leading-relaxed mb-4">
+            <Trans text={featuredProject.description} />
+          </p>
+          <div class="flex flex-wrap gap-2 pt-2 border-t border-slate-800/80">
+            {featuredProject.tech.map((t) => (
+              <span class="px-2.5 py-0.5 rounded text-xs font-medium bg-slate-800 text-slate-300">
+                {t}
+              </span>
+            ))}
+          </div>
+        </article>
+      )
+    }
   </section>
 </Layout>
 

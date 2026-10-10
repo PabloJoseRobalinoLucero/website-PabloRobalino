@@ -1,12 +1,20 @@
-# Astro i18n Project Guidelines
+# Project Guidelines
 
-Always reference and strictly adhere to the instructions defined in:
-- `AGENTS.md`
-- `CLAUDE.md`
+Always reference and strictly adhere to the instructions defined in `AGENTS.md`
+(`CLAUDE.md` is a symlink of it).
 
-## Core Architecture & i18n Rules
-- Strictly follow Astro's native i18n routing conventions (e.g., localized subdirectories in `src/pages/` or configured prefixes).
-- Do not hardcode static text directly inside `.astro` or UI components. Always use the project's translation helpers or dictionary files.
-- Ensure internal navigation links dynamically account for the active locale prefix.
+## i18n — CRITICAL (intentionally duplicated from AGENTS.md)
+- Do NOT use Astro's native i18n routing. No localized subdirectories
+  (`src/pages/en/`, `src/pages/es/`), no locale prefixes, no `i18n` option in
+  `astro.config.mjs`. This project uses ONE route per page with a runtime
+  language toggle (full rules in AGENTS.md).
+
+## General Rules
+- Do not hardcode static text directly inside `.astro` or UI components.
+  Always use the translation dictionary (`src/i18n/ui.ts`) or data files
+  (`src/data/`).
 - Use TypeScript type-safety for translation keys and i18n helper parameters.
-- When generating new pages or components, maintain consistency with the existing project folder structure.
+- Internal navigation links are plain and static; they never include locale
+  prefixes and never change with the active language.
+- When generating new pages or components, maintain consistency with the
+  folder structure defined in `AGENTS.md`.

@@ -1,7 +1,18 @@
 import { ui, defaultLang, type SupportedLanguage, type UIKey } from './ui';
 
-export function useTranslations(lang: SupportedLanguage) {
-  return function t(key: UIKey): string {
-    return ui[lang]?.[key] ?? ui[defaultLang][key];
+export interface TranslatableString {
+  es: string;
+  en: string;
+}
+
+export function getUIText(key: UIKey, lang: SupportedLanguage = defaultLang): string {
+  return ui[lang][key];
+}
+
+export function getUITranslation(key: UIKey): TranslatableString {
+  return {
+    es: ui.es[key],
+    en: ui.en[key],
   };
 }
+
