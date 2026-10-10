@@ -1,0 +1,75 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Trans from '../components/Trans.astro';
+import { ui } from '../i18n/ui';
+import { talks } from '../data/talks';
+import { formatIsoDate } from '../i18n/utils';
+---
+
+<Layout titleEs={ui.es['talks.title']} titleEn={ui.en['talks.title']}>
+  <div class="space-y-12">
+    <!-- Page Header -->
+    <header class="space-y-2 border-b border-neutral-800/70 pb-8">
+      <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-100">
+        <Trans k="talks.pageTitle" />
+      </h1>
+      <p class="text-base text-neutral-400">
+        <Trans k="talks.pageDescription" />
+      </p>
+    </header>
+
+    <!-- Editorial List -->
+    <div class="divide-y divide-neutral-800/70">
+      {
+        talks.map((talk) => {
+          const dateText = formatIsoDate(talk.date);
+          return (
+            <article class="py-8 first:pt-0 last:pb-0 grid grid-cols-1 md:grid-cols-[9rem_1fr] gap-4 md:gap-6">
+              <!-- Date -->
+              <div class="text-sm text-neutral-500 font-mono pt-1">
+                <Trans text={dateText} />
+              </div>
+
+              <!-- Talk Details -->
+              <div class="space-y-2">
+                <h2 class="text-lg font-semibold text-neutral-100">
+                  {talk.title}
+                </h2>
+                <p class="text-sm text-sky-400">
+                  {talk.event}
+                </p>
+
+                {
+                  (talk.slides || talk.video) && (
+                    <div class="flex items-center gap-4 pt-2 text-xs">
+                      {talk.slides && (
+                        <a
+                          href={talk.slides}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="text-sky-400 hover:text-sky-300 transition-colors"
+                        >
+                          <Trans k="talks.slides" /> →
+                        </a>
+                      )}
+                      {talk.video && (
+                        <a
+                          href={talk.video}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="text-sky-400 hover:text-sky-300 transition-colors"
+                        >
+                          <Trans k="talks.video" /> →
+                        </a>
+                      )}
+                    </div>
+                  )
+                }
+              </div>
+            </article>
+          );
+        })
+      }
+    </div>
+  </div>
+</Layout>

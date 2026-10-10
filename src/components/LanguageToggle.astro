@@ -1,27 +1,26 @@
 ---
-import { ui } from '../i18n/ui';
 ---
 
 <div
   role="group"
-  aria-label={ui.es['lang.toggleAria']}
-  class="inline-flex items-center gap-1 p-1 rounded-lg bg-slate-900 border border-slate-800 text-xs sm:text-sm font-medium"
+  aria-label="Seleccionar idioma / Select language"
+  class="inline-flex items-center gap-1 p-1 rounded-lg bg-neutral-900/80 border border-neutral-800/70 text-xs font-medium"
 >
   <button
     type="button"
     data-lang-btn="es"
     aria-pressed="false"
-    class="lang-btn px-3 py-1.5 rounded-md transition-all duration-200 cursor-pointer text-slate-400 hover:text-sky-300 hover:bg-slate-800/80"
+    class="lang-btn px-2.5 py-1 rounded-md transition-colors duration-150 cursor-pointer text-neutral-400 hover:text-sky-300 hover:bg-neutral-800/80"
   >
-    {ui.es['lang.es']}
+    ES
   </button>
   <button
     type="button"
     data-lang-btn="en"
     aria-pressed="false"
-    class="lang-btn px-3 py-1.5 rounded-md transition-all duration-200 cursor-pointer text-slate-400 hover:text-sky-300 hover:bg-slate-800/80"
+    class="lang-btn px-2.5 py-1 rounded-md transition-colors duration-150 cursor-pointer text-neutral-400 hover:text-sky-300 hover:bg-neutral-800/80"
   >
-    {ui.en['lang.en']}
+    EN
   </button>
 </div>
 
@@ -30,15 +29,13 @@ import { ui } from '../i18n/ui';
 
   const ACTIVE_CLASSES = [
     'bg-sky-500',
-    'text-slate-950',
+    'text-neutral-950',
     'font-semibold',
-    'shadow-sm',
-    'shadow-sky-500/25',
   ];
   const INACTIVE_CLASSES = [
-    'text-slate-400',
+    'text-neutral-400',
     'hover:text-sky-300',
-    'hover:bg-slate-800/80',
+    'hover:bg-neutral-800/80',
   ];
 
   function updateActiveUI(lang: SupportedLanguage) {

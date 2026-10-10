@@ -5,28 +5,35 @@ export interface Project {
   title: TranslatableString;
   tagline: TranslatableString;
   description: TranslatableString;
+  category: 'iot' | 'web' | 'software';
+  year: number;
   tech: string[];
   featured: boolean;
-  link?: string;
-  github?: string;
+  links?: {
+    demo?: string;
+    repo?: string;
+  };
 }
 
 export const projects: Project[] = [
   {
-    slug: 'smart-iot-telemetry',
+    slug: 'plataforma-dece',
     title: {
-      es: 'Sistema de Telemetría IoT Inteligente',
-      en: 'Smart IoT Telemetry System',
+      es: 'Plataforma DECE',
+      en: 'DECE Platform',
     },
     tagline: {
-      es: 'Monitoreo en tiempo real de sensores industriales y análisis predictivo',
-      en: 'Real-time industrial sensor monitoring and predictive analytics',
+      es: 'Sistema web para el Departamento de Consejería Estudiantil de una unidad educativa municipal',
+      en: "Web system for a municipal school's Student Counseling Department",
     },
     description: {
-      es: 'Plataforma completa de recolección y visualización de datos de sensores IoT con microcontroladores ESP32, broker MQTT y dashboard analítico.',
-      en: 'Comprehensive IoT data collection and visualization platform featuring ESP32 microcontrollers, MQTT broker, and an analytical dashboard.',
+      es: 'Plataforma desarrollada y desplegada para la Unidad Educativa Municipal «Alfredo Albuja Galindo» (GAD Municipal de Ibarra). Implementa la lógica del sistema y la base de datos con PHP y PostgreSQL para digitalizar los procesos del DECE.',
+      en: 'Platform developed and deployed for the "Alfredo Albuja Galindo" Municipal Educational Unit (Municipality of Ibarra). Implements system logic and database functionality with PHP and PostgreSQL to digitize the DECE processes.',
     },
-    tech: ['C++', 'FreeRTOS', 'MQTT', 'TypeScript', 'Astro', 'Tailwind CSS'],
+    category: 'web',
+    year: 2023,
+    tech: ['PHP', 'PostgreSQL'],
     featured: true,
   },
 ];
+

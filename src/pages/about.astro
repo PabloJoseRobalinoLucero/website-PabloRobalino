@@ -1,0 +1,116 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Trans from '../components/Trans.astro';
+import { ui } from '../i18n/ui';
+import { education, trainingGroups, interests } from '../data/about';
+---
+
+<Layout titleEs={ui.es['about.title']} titleEn={ui.en['about.title']}>
+  <div class="space-y-12">
+    <!-- Page Header -->
+    <header class="space-y-2 border-b border-neutral-800/60 pb-8">
+      <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-100">
+        <Trans k="about.pageTitle" />
+      </h1>
+      <p class="text-base text-neutral-400">
+        <Trans k="about.pageDescription" />
+      </p>
+    </header>
+
+    <!-- Perfil Section -->
+    <section class="space-y-4 border-b border-neutral-800/60 pb-10">
+      <h2 class="uppercase tracking-widest text-xs font-semibold text-neutral-500">
+        <Trans k="about.section.profile" />
+      </h2>
+      <div class="space-y-4 text-base text-neutral-300 leading-relaxed max-w-3xl">
+        <p><Trans k="about.profile.p1" /></p>
+        <p><Trans k="about.profile.p2" /></p>
+      </div>
+    </section>
+
+    <!-- Educación Section -->
+    <section class="space-y-6 border-b border-neutral-800/60 pb-10">
+      <h2 class="uppercase tracking-widest text-xs font-semibold text-neutral-500">
+        <Trans k="about.section.education" />
+      </h2>
+      <div class="space-y-6">
+        {
+          education.map((item, index) => (
+            <div class={`space-y-1 ${index !== education.length - 1 ? 'border-b border-neutral-800/40 pb-6' : ''}`}>
+              <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
+                <h3 class="text-lg font-semibold text-neutral-100">
+                  <Trans text={item.degree} />
+                </h3>
+                {item.current ? (
+                  <span class="text-xs font-medium text-sky-400">
+                    <Trans k="about.education.inProgress" />
+                  </span>
+                ) : (
+                  <span class="text-xs text-neutral-500">{item.period}</span>
+                )}
+              </div>
+              <p class="text-sm text-neutral-400">
+                {item.institution} <span class="text-neutral-600">·</span> {item.location}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- Idiomas Section -->
+    <section class="space-y-4 border-b border-neutral-800/60 pb-10">
+      <h2 class="uppercase tracking-widest text-xs font-semibold text-neutral-500">
+        <Trans k="about.section.languages" />
+      </h2>
+      <div class="flex flex-col sm:flex-row gap-4 sm:gap-8 text-sm text-neutral-300">
+        <div><Trans k="about.languages.spanish" /></div>
+        <div class="hidden sm:block text-neutral-700">·</div>
+        <div><Trans k="about.languages.english" /></div>
+      </div>
+    </section>
+
+    <!-- Formación complementaria Section -->
+    <section class="space-y-6 border-b border-neutral-800/60 pb-10">
+      <h2 class="uppercase tracking-widest text-xs font-semibold text-neutral-500">
+        <Trans k="about.section.training" />
+      </h2>
+      <div class="space-y-8">
+        {
+          trainingGroups.map((group) => (
+            <div class="space-y-3">
+              <h3 class="text-sm font-semibold text-sky-400">
+                {group.provider}
+              </h3>
+              <ul class="space-y-2 text-sm text-neutral-300">
+                {group.courses.map((course) => (
+                  <li class="flex items-start gap-2">
+                    <span class="text-neutral-600 select-none">–</span>
+                    <Trans text={course} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- Intereses Section -->
+    <section class="space-y-4 pb-4">
+      <h2 class="uppercase tracking-widest text-xs font-semibold text-neutral-500">
+        <Trans k="about.section.interests" />
+      </h2>
+      <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-neutral-300">
+        {
+          interests.map((interest) => (
+            <li class="flex items-center gap-2">
+              <span class="text-neutral-600 select-none">–</span>
+              <Trans text={interest} />
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </div>
+</Layout>

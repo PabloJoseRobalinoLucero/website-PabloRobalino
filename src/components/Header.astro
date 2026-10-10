@@ -1,0 +1,164 @@
+---
+import LanguageToggle from './LanguageToggle.astro';
+import Trans from './Trans.astro';
+
+const currentPath = Astro.url.pathname;
+
+const navItems = [
+  { href: '/about', key: 'nav.about' as const },
+  { href: '/portfolio', key: 'nav.portfolio' as const },
+  { href: '/experience', key: 'nav.experience' as const },
+  { href: '/talks', key: 'nav.talks' as const },
+  { href: '/community', key: 'nav.community' as const },
+  { href: '/contact', key: 'nav.contact' as const },
+];
+---
+
+<header class="border-b border-neutral-800/60 bg-neutral-950/80 backdrop-blur-md sticky top-0 z-50">
+  <div class="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
+    <!-- Brand -->
+    <a
+      href="/"
+      class="font-semibold text-neutral-100 hover:text-sky-300 transition-colors"
+    >
+      <span>Pablo Robalino</span>
+    </a>
+
+    <!-- Desktop Navigation (lg+) Centered -->
+    <nav class="hidden lg:flex items-center gap-6" aria-label="Navegación principal">
+      {
+        navItems.map((item) => {
+          const isActive =
+            currentPath === item.href ||
+            (item.href !== '/' && currentPath.startsWith(item.href));
+          return (
+            <a
+              href={item.href}
+              aria-current={isActive ? 'page' : undefined}
+              class={`text-sm transition-colors ${
+                isActive
+                  ? 'text-sky-400 font-medium'
+                  : 'text-neutral-400 hover:text-sky-300'
+              }`}
+            >
+              <Trans k={item.key} />
+            </a>
+          );
+        })
+      }
+    </nav>
+
+    <!-- Desktop Language Toggle -->
+    <div class="hidden lg:flex items-center">
+      <LanguageToggle />
+    </div>
+
+    <!-- Mobile Navigation (<lg): Toggle + Hamburger -->
+    <div class="flex items-center gap-2 lg:hidden">
+      <LanguageToggle />
+      <button
+        id="mobile-menu-btn"
+        type="button"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label="Abrir menú / Open menu"
+        class="p-2 rounded-lg text-neutral-400 hover:text-sky-300 hover:bg-neutral-900 transition-colors focus:outline-hidden"
+      >
+        <!-- Hamburger Icon -->
+        <svg
+          id="hamburger-icon"
+          class="w-5 h-5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"
+          ></path>
+        </svg>
+        <!-- Close Icon -->
+        <svg
+          id="close-icon"
+          class="w-5 h-5 hidden"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"
+          ></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu Panel -->
+  <div
+    id="mobile-menu"
+    class="hidden lg:hidden border-t border-neutral-800/60 bg-neutral-950/95 px-4 py-4 space-y-1 transition-all duration-200"
+  >
+    {
+      navItems.map((item) => {
+        const isActive =
+          currentPath === item.href ||
+          (item.href !== '/' && currentPath.startsWith(item.href));
+        return (
+          <a
+            href={item.href}
+            aria-current={isActive ? 'page' : undefined}
+            class={`mobile-nav-link block py-2.5 px-3 rounded-lg text-base transition-colors ${
+              isActive
+                ? 'text-sky-400 font-medium bg-neutral-900/60'
+                : 'text-neutral-400 hover:text-sky-300 hover:bg-neutral-900/40'
+            }`}
+          >
+            <Trans k={item.key} />
+          </a>
+        );
+      })
+    }
+  </div>
+</header>
+
+<script>
+  function setupMobileMenu() {
+    const btn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    const hamburgerIcon = document.getElementById('hamburger-icon');
+    const closeIcon = document.getElementById('close-icon');
+
+    if (!btn || !menu || !hamburgerIcon || !closeIcon) return;
+
+    function toggleMenu() {
+      const isExpanded = btn?.getAttribute('aria-expanded') === 'true';
+      const nextState = !isExpanded;
+      btn?.setAttribute('aria-expanded', String(nextState));
+      menu?.classList.toggle('hidden', !nextState);
+      hamburgerIcon?.classList.toggle('hidden', nextState);
+      closeIcon?.classList.toggle('hidden', !nextState);
+    }
+
+    btn.addEventListener('click', toggleMenu);
+
+    // Close when a link inside mobile menu is clicked
+    const links = menu.querySelectorAll('.mobile-nav-link');
+    links.forEach((link) => {
+      link.addEventListener('click', () => {
+        if (btn.getAttribute('aria-expanded') === 'true') {
+          toggleMenu();
+        }
+      });
+    });
+  }
+
+  setupMobileMenu();
+  document.addEventListener('astro:page-load', setupMobileMenu);
+</script>

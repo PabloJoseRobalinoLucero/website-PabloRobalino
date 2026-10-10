@@ -1,0 +1,115 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Trans from '../../components/Trans.astro';
+import { ui } from '../../i18n/ui';
+import { projects } from '../../data/projects';
+
+const categories = [
+  { id: 'all', key: 'portfolio.filterAll' as const },
+  { id: 'iot', key: 'portfolio.filterIoT' as const },
+  { id: 'web', key: 'portfolio.filterWeb' as const },
+  { id: 'software', key: 'portfolio.filterSoftware' as const },
+];
+---
+
+<Layout titleEs={ui.es['portfolio.title']} titleEn={ui.en['portfolio.title']}>
+  <div class="space-y-10">
+    <!-- Page Header -->
+    <header class="space-y-2 border-b border-neutral-800/70 pb-8">
+      <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-100">
+        <Trans k="portfolio.pageTitle" />
+      </h1>
+      <p class="text-base text-neutral-400">
+        <Trans k="portfolio.pageDescription" />
+      </p>
+    </header>
+
+    <!-- Category Filters (Plain text links/buttons, no chips) -->
+    <div class="flex items-center gap-6 text-sm" role="tablist" aria-label="Filtro de proyectos">
+      {
+        categories.map((cat, idx) => (
+          <button
+            type="button"
+            data-filter={cat.id}
+            class={`portfolio-filter-btn cursor-pointer transition-colors ${
+              idx === 0
+                ? 'text-sky-400 font-medium'
+                : 'text-neutral-500 hover:text-neutral-300'
+            }`}
+          >
+            <Trans k={cat.key} />
+          </button>
+        ))
+      }
+    </div>
+
+    <!-- Editorial Project List -->
+    <div class="divide-y divide-neutral-800/70" id="project-list">
+      {
+        projects.map((project) => (
+          <article
+            class="project-item py-6 first:pt-0 last:pb-0 space-y-2"
+            data-category={project.category}
+          >
+            <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
+              <h2 class="text-xl font-semibold text-neutral-100">
+                <a
+                  href={`/portfolio/${project.slug}`}
+                  class="hover:text-sky-300 transition-colors"
+                >
+                  <Trans text={project.title} />
+                </a>
+              </h2>
+              <span class="text-xs text-neutral-500">{project.year}</span>
+            </div>
+
+            <p class="text-sm text-sky-300">
+              <Trans text={project.tagline} />
+            </p>
+
+            <p class="text-xs text-neutral-500 pt-1">
+              {project.tech.join(' · ')}
+            </p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</Layout>
+
+<script>
+  function setupPortfolioFilters() {
+    const filterButtons = document.querySelectorAll<HTMLButtonElement>('.portfolio-filter-btn');
+    const projectItems = document.querySelectorAll<HTMLElement>('.project-item');
+
+    filterButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const filter = btn.getAttribute('data-filter');
+
+        // Update button styles
+        filterButtons.forEach((b) => {
+          if (b === btn) {
+            b.classList.remove('text-neutral-500', 'hover:text-neutral-300');
+            b.classList.add('text-sky-400', 'font-medium');
+          } else {
+            b.classList.remove('text-sky-400', 'font-medium');
+            b.classList.add('text-neutral-500', 'hover:text-neutral-300');
+          }
+        });
+
+        // Filter project items
+        projectItems.forEach((item) => {
+          const category = item.getAttribute('data-category');
+          if (filter === 'all' || category === filter) {
+            item.classList.remove('hidden');
+          } else {
+            item.classList.add('hidden');
+          }
+        });
+      });
+    });
+  }
+
+  setupPortfolioFilters();
+  document.addEventListener('astro:page-load', setupPortfolioFilters);
+</script>

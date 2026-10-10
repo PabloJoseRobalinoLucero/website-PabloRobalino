@@ -7,41 +7,147 @@ const featuredProject = projects.find((p) => p.featured);
 ---
 
 <Layout>
-  <section class="text-center py-16 space-y-12">
-    <div>
-      <h1 class="text-4xl font-extrabold tracking-tight sm:text-6xl text-slate-100">
-        <span class="bg-linear-to-r from-sky-400 via-sky-300 to-blue-500 bg-clip-text text-transparent">
-          <Trans k="hero.title" />
-        </span>
-      </h1>
-    </div>
+  <div class="space-y-16 py-4">
+    <!-- Hero Editorial Section -->
+    <section class="space-y-6">
+      <div class="flex items-center gap-4">
+        <!-- Circular avatar with initials PR -->
+        <!-- TODO: Replace placeholder with real photo -->
+        <div
+          class="w-14 h-14 rounded-full flex items-center justify-center font-bold text-base text-sky-400 border border-white/10 bg-white/5 select-none"
+          aria-label="Pablo Robalino"
+        >
+          PR
+        </div>
 
+        <!-- Availability badge (Only emerald green on the site) -->
+        <a
+          href="https://www.linkedin.com/in/pablo-robalino-lucero/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-sky-500/30 bg-sky-950/40 text-xs font-medium text-sky-300 hover:border-sky-400/50 hover:bg-sky-900/40 transition-colors"
+        >
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          </span>
+          <Trans k="hero.available" />
+        </a>
+      </div>
+
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-neutral-100">
+        <Trans k="hero.title" />
+      </h1>
+
+      <p class="text-base sm:text-lg text-neutral-400 leading-relaxed max-w-3xl">
+        <Trans k="hero.description" />
+      </p>
+
+      <!-- Action buttons & email link -->
+      <div class="flex flex-wrap items-center gap-3 pt-2">
+        <a
+          href="https://www.linkedin.com/in/pablo-robalino-lucero/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 text-neutral-200 text-sm hover:scale-105 hover:bg-white/10 hover:border-sky-500/40 hover:text-sky-300 transition-all"
+        >
+          <svg class="w-4 h-4 fill-currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9h2.79v8.37H6.46v-8.37M7.86 6.3a1.63 1.63 0 0 0-1.63 1.63c0 .9.73 1.63 1.63 1.63.9 0 1.63-.73 1.63-1.63 0-.9-.73-1.63-1.63-1.63Z" />
+          </svg>
+          <Trans k="hero.linkedin" />
+        </a>
+
+        <!-- TODO: verify official GitHub URL -->
+        <a
+          href="https://github.com/PabloRobalino"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 text-neutral-200 text-sm hover:scale-105 hover:bg-white/10 hover:border-sky-500/40 hover:text-sky-300 transition-all"
+        >
+          <svg class="w-4 h-4 fill-currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+          </svg>
+          <Trans k="hero.github" />
+        </a>
+
+        <a
+          href="mailto:pablorobalinotrabajo@hotmail.com"
+          class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 text-neutral-200 text-sm hover:scale-105 hover:bg-white/10 hover:border-sky-500/40 hover:text-sky-300 transition-all"
+        >
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect width="20" height="16" x="2" y="4" rx="2" />
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+          </svg>
+          <span>pablorobalinotrabajo@hotmail.com</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-8 border-y border-neutral-800/60">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
+        <div>
+          <p class="text-3xl font-semibold text-neutral-100">18+</p>
+          <p class="text-xs text-neutral-500 mt-1"><Trans k="stats.talks" /></p>
+        </div>
+        <div class="sm:border-l sm:border-neutral-800/60 sm:pl-8">
+          <p class="text-3xl font-semibold text-neutral-100">30+</p>
+          <p class="text-xs text-neutral-500 mt-1"><Trans k="stats.events" /></p>
+        </div>
+        <div class="border-t border-neutral-800/60 pt-6 sm:border-t-0 sm:pt-0 sm:border-l sm:border-neutral-800/60 sm:pl-8">
+          <p class="text-3xl font-semibold text-neutral-100">3+</p>
+          <p class="text-xs text-neutral-500 mt-1"><Trans k="stats.experience" /></p>
+        </div>
+        <div class="border-t border-neutral-800/60 pt-6 sm:border-t-0 sm:pt-0 sm:border-l sm:border-neutral-800/60 sm:pl-8">
+          <p class="text-3xl font-semibold text-neutral-100">16</p>
+          <p class="text-xs text-neutral-500 mt-1"><Trans k="stats.leadership" /></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Project Section (Editorial format, no card box) -->
     {
       featuredProject && (
-        <article class="max-w-xl mx-auto p-6 rounded-2xl bg-slate-900/60 border border-slate-800 text-left backdrop-blur-sm shadow-xl shadow-slate-950/50">
-          <div class="inline-block px-3 py-1 mb-4 rounded-full text-xs font-semibold tracking-wider uppercase bg-sky-950/80 text-sky-400 border border-sky-800/50">
+        <section class="space-y-4">
+          <p class="uppercase tracking-widest text-xs font-semibold text-neutral-500">
             <Trans k="projects.featured" />
-          </div>
-          <h2 class="text-2xl font-bold text-slate-100 mb-2">
-            <Trans text={featuredProject.title} />
-          </h2>
-          <p class="text-sky-300 text-sm mb-3">
-            <Trans text={featuredProject.tagline} />
           </p>
-          <p class="text-slate-400 text-sm leading-relaxed mb-4">
-            <Trans text={featuredProject.description} />
-          </p>
-          <div class="flex flex-wrap gap-2 pt-2 border-t border-slate-800/80">
-            {featuredProject.tech.map((t) => (
-              <span class="px-2.5 py-0.5 rounded text-xs font-medium bg-slate-800 text-slate-300">
-                {t}
-              </span>
-            ))}
-          </div>
-        </article>
+
+          <article class="space-y-3">
+            <h2 class="text-2xl font-bold text-neutral-100">
+              <a
+                href={`/portfolio/${featuredProject.slug}`}
+                class="hover:text-sky-300 transition-colors"
+              >
+                <Trans text={featuredProject.title} />
+              </a>
+            </h2>
+
+            <p class="text-sky-300 text-sm">
+              <Trans text={featuredProject.tagline} />
+            </p>
+
+            <p class="text-neutral-400 text-sm leading-relaxed max-w-3xl">
+              <Trans text={featuredProject.description} />
+            </p>
+
+            <p class="text-xs text-neutral-500 pt-1">
+              {featuredProject.tech.join(' · ')}
+            </p>
+
+            <div>
+              <a
+                href={`/portfolio/${featuredProject.slug}`}
+                class="inline-flex items-center text-sm text-sky-400 hover:text-sky-300 transition-colors"
+              >
+                <Trans k="projects.viewProject" />
+              </a>
+            </div>
+          </article>
+        </section>
       )
     }
-  </section>
+  </div>
 </Layout>
 
 
