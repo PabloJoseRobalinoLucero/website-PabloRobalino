@@ -25,8 +25,14 @@ const {
 >
   <head>
     <meta charset="utf-8" />
+    <!-- Default favicon (sky-colored logo, universal fallback) -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
+    <!-- Dark-mode browser chrome: white-content logo stands out on dark tab bar -->
+    <link rel="icon" type="image/svg+xml" href="/favicon-light.svg" media="(prefers-color-scheme: dark)" />
+    <!-- Light-mode browser chrome: black-content logo stands out on light tab bar -->
+    <link rel="icon" type="image/svg+xml" href="/favicon-dark.svg" media="(prefers-color-scheme: light)" />
+    <!-- ICO fallback for legacy browsers -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <title>{titleEs}</title>

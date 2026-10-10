@@ -11,28 +11,12 @@ const featuredProject = projects.find((p) => p.featured);
     <!-- Hero Editorial Section -->
     <section class="space-y-6">
       <div class="flex items-center gap-4">
-        <!-- Circular avatar with initials PR -->
-        <!-- TODO: Replace placeholder with real photo -->
-        <div
-          class="w-14 h-14 rounded-full flex items-center justify-center font-bold text-base text-sky-400 border border-white/10 bg-white/5 select-none"
-          aria-label="Pablo Robalino"
-        >
-          PR
-        </div>
-
-        <!-- Availability badge (Only emerald green on the site) -->
-        <a
-          href="https://www.linkedin.com/in/pablo-robalino-lucero/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-sky-500/30 bg-sky-950/40 text-xs font-medium text-sky-300 hover:border-sky-400/50 hover:bg-sky-900/40 transition-colors"
-        >
-          <span class="relative flex h-2 w-2">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-          </span>
-          <Trans k="hero.available" />
-        </a>
+        <!-- Profile photo -->
+        <img
+          src="/pablo-robalino.png"
+          alt="Pablo Robalino"
+          class="w-40 h-40 rounded-full object-cover object-top border border-white/10"
+        />
       </div>
 
       <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-neutral-100">
@@ -45,6 +29,15 @@ const featuredProject = projects.find((p) => p.featured);
 
       <!-- Action buttons & email link -->
       <div class="flex flex-wrap items-center gap-3 pt-2">
+        <!-- Availability badge -->
+        <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 text-neutral-200 text-sm">
+          <span class="relative flex h-2 w-2 shrink-0">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          </span>
+          <Trans k="hero.available" />
+        </span>
+
         <a
           href="https://www.linkedin.com/in/pablo-robalino-lucero/"
           target="_blank"
