@@ -65,11 +65,13 @@ const esTranslations = {
   'experience.pageDescription': 'Trayectoria técnica en desarrollo de proyectos y desarrollo de software.',
   'experience.present': 'Actualidad',
 
-  // Talks
+ // Talks
   'talks.pageTitle': 'Charlas',
   'talks.pageDescription': 'Conferencias, talleres y ponencias sobre IoT, hardware libre y desarrollo web.',
-  'talks.slides': 'Diapositivas',
-  'talks.video': 'Video',
+  'talks.section.teaching': 'Docencia',
+  'course.mode.presencial': 'Presencial',
+  'course.mode.virtual': 'Virtual',
+  'course.mode.hibrido': 'Híbrido',
 
   // Community
   'community.pageTitle': 'Comunidad',
@@ -167,11 +169,13 @@ const enTranslations: Record<UIKey, string> = {
   'experience.pageDescription': 'Technical background in project development and software engineering.',
   'experience.present': 'Present',
 
-  // Talks
+   // Talks
   'talks.pageTitle': 'Talks',
   'talks.pageDescription': 'Conferences, workshops, and talks on IoT, open hardware, and web development.',
-  'talks.slides': 'Slides',
-  'talks.video': 'Video',
+  'talks.section.teaching': 'Teaching',
+  'course.mode.presencial': 'In-person',
+  'course.mode.virtual': 'Virtual',
+  'course.mode.hibrido': 'Hybrid',
 
   // Community
   'community.pageTitle': 'Community',

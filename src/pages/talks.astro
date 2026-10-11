@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Trans from '../components/Trans.astro';
 import { ui } from '../i18n/ui';
-import { talks } from '../data/talks';
+import { talks, courses } from '../data/talks';
 import { formatIsoDate } from '../i18n/utils';
 ---
 
@@ -38,38 +38,49 @@ import { formatIsoDate } from '../i18n/utils';
                 <p class="text-sm text-sky-400">
                   {talk.event}
                 </p>
-
-                {
-                  (talk.slides || talk.video) && (
-                    <div class="flex items-center gap-4 pt-2 text-xs">
-                      {talk.slides && (
-                        <a
-                          href={talk.slides}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          class="text-sky-400 hover:text-sky-300 transition-colors"
-                        >
-                          <Trans k="talks.slides" /> →
-                        </a>
-                      )}
-                      {talk.video && (
-                        <a
-                          href={talk.video}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          class="text-sky-400 hover:text-sky-300 transition-colors"
-                        >
-                          <Trans k="talks.video" /> →
-                        </a>
-                      )}
-                    </div>
-                  )
-                }
               </div>
             </article>
           );
         })
       }
     </div>
+
+    <!-- Teaching Section -->
+    <section class="space-y-8 pt-8">
+      <h2 class="uppercase tracking-widest text-xs font-semibold text-neutral-500">
+        <Trans k="talks.section.teaching" />
+      </h2>
+
+      <div class="divide-y divide-neutral-800/70">
+        {
+          courses.map((course) => {
+            const dateText = formatIsoDate(course.date);
+            return (
+              <article class="py-8 first:pt-0 last:pb-0 grid grid-cols-1 md:grid-cols-[9rem_1fr] gap-4 md:gap-6">
+                <!-- Date -->
+                <div class="text-sm text-neutral-500 font-mono pt-1">
+                  <Trans text={dateText} />
+                </div>
+
+                <!-- Course Details -->
+                <div class="space-y-2">
+                  <h3 class="text-lg font-semibold text-neutral-100">
+                    <Trans text={course.title} />
+                  </h3>
+                  <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
+                    <span class="text-sky-400">{course.context}</span>
+                    <span class="text-neutral-600">•</span>
+                    <span class="text-neutral-400">
+                      <Trans k={`course.mode.${course.mode}`} />
+                    </span>
+                  </div>
+                </div>
+              </article>
+            );
+          })
+        }
+      </div>
+    </section>
+
   </div>
 </Layout>
