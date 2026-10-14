@@ -102,24 +102,24 @@ type TranslatableString = { es: string; en: string };
 
 <https://pablorobalino.pages.dev>
 
-**⚠️ IMPORTANTE: Google Search Console Verification**  
-Para que Google indexe tu sitio correctamente, debes mantener la meta tag de verificación activa.  
-El archivo `src/layouts/Layout.astro` ya incluye:
+**⚠️ IMPORTANT: Google Search Console Verification**  
+To ensure Google properly indexes your site, you must keep the verification meta tag active.  
+The `src/layouts/Layout.astro` file already includes:
 
 ```html
 <meta name="google-site-verification" content="MjhJOdX3LyE8Jkbx6PPvpCGo0YK4Bqs3SMCkcodYu-o" />
 ```
 
-**PASOS CRÍTICOS - NUNCA ELIMINES ESTO:**
+**CRITICAL STEPS - DO NOT REMOVE:**
 
-1. **NUNCA elimines** la meta tag `<meta name="google-site-verification" content="MjhJOdX3LyE8Jkbx6PPvpCGo0YK4Bqs3SMCkcodYu-o" />` de `src/layouts/Layout.astro`
-2. Si necesitas cambiar el contenido del `content="..."`, debes:
-   - Generar una nueva clave en [Google Search Console](https://search.google.com/search-console)
-   - Reemplazar el valor en `src/layouts/Layout.astro` con la nueva clave
-3. Después de cambiar la clave, espera 24-48 horas para que Google propague el cambio
-4. El sitio se recomienda inicialmente para la propiedad `pablorobalino.pages.dev`
+1. **NEVER remove** the meta tag `<meta name="google-site-verification" content="MjhJOdX3LyE8Jkbx6PPvpCGo0YK4Bqs3SMCkcodYu-o" />` from `src/layouts/Layout.astro`
+2. If you need to change the `content="..."` value, you must:
+   - Generate a new key in [Google Search Console](https://search.google.com/search-console)
+   - Replace the value in `src/layouts/Layout.astro` with the new key
+3. After changing the key, wait 24-48 hours for Google to propagate the change
+4. The site is initially recommended for the `pablorobalino.pages.dev` property
 
-Sin esta meta tag, Google no podrá verificar la propiedad y podría no indexar tu sitio correctamente.
+Without this meta tag, Google cannot verify the property and your site may not be indexed correctly.
 
 ## Available Commands
 
@@ -133,3 +133,5 @@ Sin esta meta tag, Google no podrá verificar la propiedad y podría no indexar 
 ## License
 
 This project is licensed under the **MIT License with Visible Attribution Requirement**. It permits free use and modification provided that the original copyright notice and the visible attribution ("Designed by [Author Name]") are maintained in the user interface. Refer to the `LICENSE` file for the full legal text and specific attribution requirements.
+
+
