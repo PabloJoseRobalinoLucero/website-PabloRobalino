@@ -2,28 +2,54 @@
 import Layout from '../layouts/Layout.astro';
 import Trans from '../components/Trans.astro';
 import { ui } from '../i18n/ui';
-import { roles, getRoleStatus, type RoleStatus } from '../data/community';
-import { formatPeriod } from '../i18n/utils';
+import {
+  roles,
+  getRoleStatus,
+  type RoleStatus,
+  events,
+  volunteering,
+  awards,
+  memberships,
+  type CommunityEvent,
+} from '../data/community';
+import { formatPeriod, formatIsoDate } from '../i18n/utils';
 
-const statusConfig: Record<RoleStatus, { key: 'community.status.current' | 'community.status.upcoming' | 'community.status.completed'; class: string }> = {
-  current: {
-    key: 'community.status.current',
-    class: 'text-sky-400',
-  },
-  upcoming: {
-    key: 'community.status.upcoming',
-    class: 'text-neutral-400',
-  },
-  completed: {
-    key: 'community.status.completed',
-    class: 'text-neutral-600',
-  },
+const statusConfig: Record<RoleStatus, {
+  key: 'community.status.current' | 'community.status.upcoming' | 'community.status.completed';
+  cls: string;
+}> = {
+  current:   { key: 'community.status.current',   cls: 'text-sky-400' },
+  upcoming:  { key: 'community.status.upcoming',  cls: 'text-neutral-400' },
+  completed: { key: 'community.status.completed', cls: 'text-neutral-600' },
 };
----
 
+const AWARD_TYPES = ['competition', 'award', 'cultural'] as const;
+const awardTypeConfig = {
+  competition: 'community.awards.competition' as const,
+  award:       'community.awards.award' as const,
+  cultural:    'community.awards.cultural' as const,
+};
+
+const EVENT_ROLES = ['lead', 'moderator', 'staff'] as const;
+const eventRoleConfig = {
+  lead:      'community.events.lead' as const,
+  moderator: 'community.events.moderator' as const,
+  staff:     'community.events.staff' as const,
+};
+
+const attendeeEvents = events.filter((e) => e.role === 'attendee');
+const activeEvents   = events.filter((e) => e.role !== 'attendee');
+
+const attendeeByYear: Record<string, CommunityEvent[]> = {};
+for (const ev of attendeeEvents) {
+  const yr = ev.start.slice(0, 4);
+  if (!attendeeByYear[yr]) attendeeByYear[yr] = [];
+  attendeeByYear[yr].push(ev);
+}
+const attendeeYears = Object.keys(attendeeByYear).sort((a, b) => Number(b) - Number(a));
+---
 <Layout titleEs={ui.es['community.title']} titleEn={ui.en['community.title']}>
   <div class="space-y-12">
-    <!-- Page Header -->
     <header class="space-y-2 border-b border-neutral-800/70 pb-8">
       <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-100">
         <Trans k="community.pageTitle" />
@@ -33,44 +59,237 @@ const statusConfig: Record<RoleStatus, { key: 'community.status.current' | 'comm
       </p>
     </header>
 
-    <!-- Roles Section -->
+    <!-- 1. Roles -->
     <section class="space-y-6">
       <h2 class="uppercase tracking-widest text-xs font-semibold text-neutral-500">
         <Trans k="community.rolesSection" />
       </h2>
-
       <div class="divide-y divide-neutral-800/70">
-        {
-          roles.map((item) => {
-            const status = getRoleStatus(item.period);
-            const periodText = formatPeriod(item.period);
-            const statusInfo = statusConfig[status];
-
-            return (
-              <article class="py-6 first:pt-0 last:pb-0 space-y-2">
-                <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
-                  <h3 class="text-lg font-semibold text-neutral-100">
-                    <Trans text={item.role} />
-                  </h3>
-                  <div class="flex items-center gap-3 text-xs">
-                    <span class="text-neutral-500 font-mono">
-                      <Trans text={periodText} />
-                    </span>
-                    <span class="text-neutral-700">·</span>
-                    <span class={`font-medium ${statusInfo.class}`}>
-                      <Trans k={statusInfo.key} />
-                    </span>
-                  </div>
+        {roles.map((item) => {
+          const status = getRoleStatus(item.period);
+          const periodText = formatPeriod(item.period);
+          const statusInfo = statusConfig[status];
+          return (
+            <article class="py-6 first:pt-0 last:pb-0 space-y-2">
+              <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
+                <h3 class="text-lg font-semibold text-neutral-100">
+                  <Trans text={item.role} />
+                </h3>
+                <div class="flex items-center gap-3 text-xs">
+                  <span class="text-neutral-500 font-mono"><Trans text={periodText} /></span>
+                  <span class="text-neutral-700">·</span>
+                  <span class={`font-medium ${statusInfo.cls}`}>
+                    <Trans k={statusInfo.key} />
+                  </span>
                 </div>
-
-                <p class="text-sm text-sky-400">
-                  {item.org}
-                </p>
-              </article>
-            );
-          })
-        }
+              </div>
+              <p class="text-sm text-sky-400">{item.org}</p>
+            </article>
+          );
+        })}
       </div>
     </section>
+
+    <!-- 2. Awards -->
+    {awards.length > 0 && (
+      <section class="space-y-6">
+        <h2 class="uppercase tracking-widest text-xs font-semibold text-neutral-500">
+          <Trans k="community.section.awards" />
+        </h2>
+        {AWARD_TYPES.map((type) => {
+          const typeAwards = awards.filter((a) => a.type === type);
+          if (typeAwards.length === 0) return null;
+          return (
+            <div class="space-y-4">
+              <h3 class="text-sm font-semibold text-neutral-400 uppercase tracking-widest">
+                <Trans k={awardTypeConfig[type]} />
+              </h3>
+              <div class="divide-y divide-neutral-800/70">
+                {typeAwards.map((award) => {
+                  const dateText = formatIsoDate(award.date);
+                  return (
+                    <article class="py-5 first:pt-0 last:pb-0 space-y-1">
+                      <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
+                        <h4 class="text-base font-semibold text-neutral-100">
+                          <Trans text={award.result} />
+                        </h4>
+                        <span class="text-neutral-500 font-mono text-xs">
+                          <Trans text={dateText} />
+                        </span>
+                      </div>
+                      <p class="text-sm text-sky-400"><Trans text={award.what} /></p>
+                      {award.org && <p class="text-sm text-neutral-400">{award.org}</p>}
+                    </article>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })}
+      </section>
+    )}
+
+    <!-- 3. Events (lead / moderator / staff) -->
+    {activeEvents.length > 0 && (
+      <section class="space-y-6">
+        <h2 class="uppercase tracking-widest text-xs font-semibold text-neutral-500">
+          <Trans k="community.section.events" />
+        </h2>
+        {EVENT_ROLES.map((role) => {
+          const roleEvents = events.filter((e) => e.role === role);
+          if (roleEvents.length === 0) return null;
+          return (
+            <div class="space-y-4">
+              <h3 class="text-sm font-semibold text-neutral-400 uppercase tracking-widest">
+                <Trans k={eventRoleConfig[role]} />
+              </h3>
+              <div class="divide-y divide-neutral-800/70">
+                {roleEvents.map((ev) => {
+                  const periodText = formatPeriod({ start: ev.start, end: ev.end ?? null });
+                  return (
+                    <article class="py-5 first:pt-0 last:pb-0 space-y-1">
+                      <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
+                        <h4 class="text-base font-semibold text-neutral-100">{ev.event}</h4>
+                        <span class="text-neutral-500 font-mono text-xs">
+                          <Trans text={periodText} />
+                        </span>
+                      </div>
+                      {ev.detail && <p class="text-sm text-sky-400"><Trans text={ev.detail} /></p>}
+                    </article>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })}
+      </section>
+    )}
+
+    <!-- 4. Volunteering -->
+    {volunteering.length > 0 && (
+      <section class="space-y-6">
+        <h2 class="uppercase tracking-widest text-xs font-semibold text-neutral-500">
+          <Trans k="community.section.volunteering" />
+        </h2>
+        <div class="divide-y divide-neutral-800/70">
+          {volunteering.map((item) => {
+            const periodText = formatPeriod({ start: item.start, end: item.end ?? null });
+            return (
+              <article class="py-5 first:pt-0 last:pb-0 space-y-1">
+                <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
+                  <h3 class="text-base font-semibold text-neutral-100">{item.activity}</h3>
+                  <span class="text-neutral-500 font-mono text-xs">
+                    <Trans text={periodText} />
+                  </span>
+                </div>
+                <p class="text-sm text-sky-400">{item.org}</p>
+                {item.description && (
+                  <p class="text-sm text-neutral-400"><Trans text={item.description} /></p>
+                )}
+              </article>
+            );
+          })}
+        </div>
+      </section>
+    )}
+
+    <!-- 5. Memberships -->
+    {memberships.length > 0 && (
+      <section class="space-y-6">
+        <h2 class="uppercase tracking-widest text-xs font-semibold text-neutral-500">
+          <Trans k="community.section.memberships" />
+        </h2>
+        <div class="divide-y divide-neutral-800/70">
+          {memberships.map((item) => {
+            const periodText = formatPeriod({ start: item.start, end: item.end ?? null });
+            return (
+              <article class="py-4 first:pt-0 last:pb-0">
+                <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
+                  <h3 class="text-base font-medium text-neutral-100">{item.org}</h3>
+                  <span class="text-neutral-500 font-mono text-xs">
+                    <Trans text={periodText} />
+                  </span>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+    )}
+
+    <!-- 6. Attendance (collapsible) -->
+    {attendeeEvents.length > 0 && (
+      <section class="space-y-4">
+        <div class="flex items-center justify-between">
+          <h2 class="uppercase tracking-widest text-xs font-semibold text-neutral-500">
+            <Trans k="community.section.attendance" />
+            <span class="ml-1 text-neutral-600">({attendeeEvents.length})</span>
+          </h2>
+          <button
+            id="attendance-toggle"
+            type="button"
+            class="text-xs text-sky-400 hover:text-sky-300 transition-colors"
+            aria-expanded="false"
+            aria-controls="attendance-list"
+          >
+            <span id="attendance-label-show">
+              <Trans k="community.attendance.show" />
+            </span>
+            <span id="attendance-label-hide" class="hidden">
+              <Trans k="community.attendance.hide" />
+            </span>
+          </button>
+        </div>
+
+        <div id="attendance-list" class="hidden space-y-6">
+          {attendeeYears.map((year) => (
+            <div class="space-y-2">
+              <p class="text-xs text-neutral-500 font-mono">{year}</p>
+              <div class="divide-y divide-neutral-800/70">
+                {attendeeByYear[year].map((ev) => {
+                  const dateText = formatIsoDate(ev.start);
+                  return (
+                    <div class="py-3 first:pt-0 last:pb-0 flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
+                      <span class="text-sm text-neutral-200">{ev.event}</span>
+                      <div class="flex items-center gap-2 text-xs text-neutral-500 font-mono">
+                        <Trans text={dateText} />
+                        {ev.detail && (
+                          <span class="text-neutral-400 font-sans">
+                            · <Trans text={ev.detail} />
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
   </div>
 </Layout>
+
+<script>
+  function setupAttendanceToggle() {
+    const btn = document.getElementById('attendance-toggle');
+    const list = document.getElementById('attendance-list');
+    const labelShow = document.getElementById('attendance-label-show');
+    const labelHide = document.getElementById('attendance-label-hide');
+
+    if (!btn || !list) return;
+
+    btn.addEventListener('click', () => {
+      const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+      const nextExpanded = !isExpanded;
+      btn.setAttribute('aria-expanded', String(nextExpanded));
+      list.classList.toggle('hidden', !nextExpanded);
+      if (labelShow) labelShow.classList.toggle('hidden', nextExpanded);
+      if (labelHide) labelHide.classList.toggle('hidden', !nextExpanded);
+    });
+  }
+
+  setupAttendanceToggle();
+  document.addEventListener('astro:page-load', setupAttendanceToggle);
+</script>

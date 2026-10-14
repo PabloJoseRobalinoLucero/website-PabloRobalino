@@ -40,7 +40,7 @@ const esTranslations = {
 
   // Stats
   'stats.talks': 'Ponencias',
-  'stats.events': 'Eventos organizados',
+  'stats.events': 'Eventos organizados y moderados',
   'stats.experience': 'Años de experiencia',
   'stats.leadership': 'Roles de liderazgo',
 
@@ -80,6 +80,19 @@ const esTranslations = {
   'community.status.current': 'Actual',
   'community.status.upcoming': 'Próximo',
   'community.status.completed': 'Finalizado',
+  'community.section.awards': 'Reconocimientos y competencias',
+  'community.awards.competition': 'Competencias técnicas',
+  'community.awards.award': 'Premios y reconocimientos',
+  'community.awards.cultural': 'Competencias culturales',
+  'community.section.events': 'Organización de eventos y moderación',
+  'community.events.lead': 'Organizador principal',
+  'community.events.moderator': 'Moderación',
+  'community.events.staff': 'Staff y logística',
+  'community.section.volunteering': 'Voluntariado',
+  'community.section.memberships': 'Membresías',
+  'community.section.attendance': 'Asistencia a eventos',
+  'community.attendance.show': 'Mostrar',
+  'community.attendance.hide': 'Ocultar',
 
   // About
   'about.pageTitle': 'Sobre mí',
@@ -144,7 +157,7 @@ const enTranslations: Record<UIKey, string> = {
 
   // Stats
   'stats.talks': 'Talks',
-  'stats.events': 'Events organized',
+  'stats.events': 'Events organized & moderated',
   'stats.experience': 'Years of experience',
   'stats.leadership': 'Leadership roles',
 
@@ -184,6 +197,19 @@ const enTranslations: Record<UIKey, string> = {
   'community.status.current': 'Current',
   'community.status.upcoming': 'Upcoming',
   'community.status.completed': 'Completed',
+  'community.section.awards': 'Awards & recognition',
+  'community.awards.competition': 'Technical competitions',
+  'community.awards.award': 'Awards & recognition',
+  'community.awards.cultural': 'Cultural competitions',
+  'community.section.events': 'Event organization & moderation',
+  'community.events.lead': 'Lead organizer',
+  'community.events.moderator': 'Moderation',
+  'community.events.staff': 'Staff & logistics',
+  'community.section.volunteering': 'Volunteering',
+  'community.section.memberships': 'Memberships',
+  'community.section.attendance': 'Event attendance',
+  'community.attendance.show': 'Show',
+  'community.attendance.hide': 'Hide',
 
   // About
   'about.pageTitle': 'About me',
