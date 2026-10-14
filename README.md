@@ -30,7 +30,7 @@ The custom `<Trans>` component renders both languages into the HTML using `data-
 ```text
 src/
 ├── components/    # Reusable UI components (Astro)
-│   └── icons/    # SVG icon components
+│   └── icons/     # SVG icon components
 ├── data/          # Structured content with inline es/en fields
 ├── i18n/          # Translation dictionary (ui.ts) and language helpers
 ├── layouts/       # Base page layouts and View Transition logic
@@ -82,7 +82,7 @@ type TranslatableString = { es: string; en: string };
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/PabloJoseRobalinoLucero/website-PabloRobalino.git
+   git clone https://github.com/PabloJoseRobalinoLucero
    ```
 2. Navigate to the project directory:
    ```bash
@@ -101,6 +101,25 @@ type TranslatableString = { es: string; en: string };
 ## Live Demo
 
 <https://pablorobalino.pages.dev>
+
+**⚠️ IMPORTANTE: Google Search Console Verification**  
+Para que Google indexe tu sitio correctamente, debes mantener la meta tag de verificación activa.  
+El archivo `src/layouts/Layout.astro` ya incluye:
+
+```html
+<meta name="google-site-verification" content="MjhJOdX3LyE8Jkbx6PPvpCGo0YK4Bqs3SMCkcodYu-o" />
+```
+
+**PASOS CRÍTICOS - NUNCA ELIMINES ESTO:**
+
+1. **NUNCA elimines** la meta tag `<meta name="google-site-verification" content="MjhJOdX3LyE8Jkbx6PPvpCGo0YK4Bqs3SMCkcodYu-o" />` de `src/layouts/Layout.astro`
+2. Si necesitas cambiar el contenido del `content="..."`, debes:
+   - Generar una nueva clave en [Google Search Console](https://search.google.com/search-console)
+   - Reemplazar el valor en `src/layouts/Layout.astro` con la nueva clave
+3. Después de cambiar la clave, espera 24-48 horas para que Google propague el cambio
+4. El sitio se recomienda inicialmente para la propiedad `pablorobalino.pages.dev`
+
+Sin esta meta tag, Google no podrá verificar la propiedad y podría no indexar tu sitio correctamente.
 
 ## Available Commands
 
