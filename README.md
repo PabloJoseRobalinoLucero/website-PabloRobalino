@@ -132,6 +132,6 @@ Without this meta tag, Google cannot verify the property and your site may not b
 
 ## License
 
-This project is licensed under the **MIT License with Visible Attribution Requirement**. It permits free use and modification provided that the original copyright notice and the visible attribution ("Designed by [Author Name]") are maintained in the user interface. Refer to the `LICENSE` file for the full legal text and specific attribution requirements.
+This project is licensed under the **MIT License with Visible Attribution Requirement**. It permits free use and modification provided that the original copyright notice and the visible attribution ("Designed by Pablo José Robalino Lucero") are maintained in the user interface. Refer to the `LICENSE` file for the full legal text and specific attribution requirements.
 
 
