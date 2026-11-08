@@ -69,9 +69,9 @@ export const roles: Role[] = [
     org: 'IEEE Nanotechnology Council Ecuador Chapter', period: { start: '2026', end: '2028' } },
   // 2026
   { role: { es: 'Equipo Score Board', en: 'Score Board Team' },
-    org: 'IEEEXtreme 20.0', period: { start: '2026-08', end: '2026-10' } },
+    org: 'IEEEXtreme 20.0', period: { start: '2026-08', end: '2026-11' } },
   { role: { es: 'Enlace Regional', en: 'Regional Liaison' },
-    org: 'IEEE Computer Society Special Projects GSAMD', period: { start: '2026', end: '2026' } },
+    org: 'IEEE Computer Society Special Projects GSAMD', period: { start: '2026', end: '2027' } },
   { role: { es: 'Líder de la Región 9', en: 'Region 9 Lead' },
     org: 'IEEE Smart Cities Communications & Outreach Strategy Committee', period: { start: '2026', end: '2026' } },
   { role: { es: 'Editor de Video y Diseñador', en: 'Video Editor & Designer' },
@@ -177,10 +177,10 @@ export const memberships: Membership[] = [
 export const events: CommunityEvent[] = [
   // ── Organizador principal ──
   { event: 'TechX Consejo Andino', role: 'lead',
-    detail: { es: 'Chair del evento', en: 'Event Chair' }, start: '2026-12' },
+    detail: { es: 'Chair del evento', en: 'Event Chair' }, start: '2027-01' },
   { event: '1-SBC-$500 Challenge', role: 'lead',
     detail: { es: 'Líder de programa', en: 'Program Lead' },
-    start: '2026-10', end: '2027-01' },
+    start: '2027-01', end: '2027-03' },
   { event: 'Taller de Branding y Redes Sociales', role: 'lead', start: '2026-03' },
   { event: 'Sesión informativa IEEEXtreme 20.0', role: 'lead', start: '2026-03' },
   { event: 'IEEE Day 2025 – UTN', role: 'lead', start: '2025-10' },

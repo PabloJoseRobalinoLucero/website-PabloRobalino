@@ -16,6 +16,7 @@ export interface Course {
 
 export const talks: Talk[] = [
   // 2026
+  { title: 'Impacto de la IA en el desarrollo humano', language: 'es', event: 'Tech Talk Dev Club', date: '2026-10' },
   { title: 'Micro Mentoring y Actividades para Sudamérica', language: 'es', event: 'IEEE CS Tech Week', date: '2026-10' },
   { title: 'Oportunidades de IEEE Computer Society para Sudamérica', language: 'es', event: 'IEEE CS International Tech Summit (Bolivia)', date: '2026-10' },
   { title: 'Herramientas de apoyo: Snippets y recursos externos', language: 'es', event: 'Ruta al IEEEXtreme 20.0', date: '2026-09' },

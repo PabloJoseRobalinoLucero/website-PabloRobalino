@@ -33,7 +33,7 @@ const esTranslations = {
   // Hero
   'hero.title': 'Hey, soy <span class="text-sky-400">Pablo</span>',
   'hero.available': 'Disponible para trabajar',
-  'hero.description': 'Ingeniero de Software y Desarrollador IoT. Hace más de 3 años construyo soluciones web y sistemas embebidos — desde plataformas IoT con ESP32 hasta aplicaciones con JavaScript. Ibarra, Ecuador.',
+  'hero.description': 'Candidato a ingeniero de Software y desarrollador IoT. Hace más de 3 años construyo soluciones web y sistemas embebidos — desde plataformas IoT con ESP32 hasta aplicaciones con JavaScript. Ibarra, Ecuador.',
   'hero.linkedin': 'LinkedIn',
   'hero.github': 'GitHub',
   'hero.contactEmail': 'pablorobalinotrabajo@hotmail.com',
@@ -150,7 +150,7 @@ const enTranslations: Record<UIKey, string> = {
   // Hero
   'hero.title': 'Hey, I\'m <span class="text-sky-400">Pablo</span>',
   'hero.available': 'Open to work',
-  'hero.description': 'Software Engineer & IoT Developer. For the past 3+ years I\'ve been building web solutions and embedded systems — from ESP32-based IoT platforms to JavaScript applications. Ibarra, Ecuador.',
+  'hero.description': 'Software Engineer Candidate & IoT Developer. For the past 3+ years I\'ve been building web solutions and embedded systems — from ESP32-based IoT platforms to JavaScript applications. Ibarra, Ecuador.',
   'hero.linkedin': 'LinkedIn',
   'hero.github': 'GitHub',
   'hero.contactEmail': 'pablorobalinotrabajo@hotmail.com',
